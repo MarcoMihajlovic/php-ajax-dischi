@@ -9,19 +9,21 @@ var app = new Vue ({
 
     methods: {
         getAlbum: function() {
-            
-            if(this.filterAuthor == 'all') {
-                return this.albums;
-            }
 
             this.albums = [];
 
             axios
                 .get('http://localhost/php-ajax-dischi/server.php?author=' + this.filterAuthor)
                 .then((request) =>{
-                    request.data.forEach(element => {
-                        this.albums.push(element);
-                    })
+                    this.albums = request.data;
+
+                    if(this.filterAuthor == "all") {
+                        request.data.forEach(element => {
+                            if(!this.types.includes(element.author)) {
+                                this.types.push(element.author);
+                            }
+                        });
+                    }
 
                 });
 
@@ -29,16 +31,8 @@ var app = new Vue ({
     },
 
     created () {
-        axios
-            .get('http://localhost/php-ajax-dischi/server.php?author=' + this.filterAuthor)
-            .then((request) =>{
-                request.data.forEach(element => {
-                    this.albums.push(element);
-                    if(!this.types.includes(element.author)) {
-                        this.types.push(element.author);
-                    };
-                })
-            });
+            this.getAlbum();
+
             Vue.config.devtools = true;
     }
 })

@@ -11,8 +11,6 @@
     if($author == "all"){
         echo json_encode($database);
     } else {
-        $filtered =[];
-        
         foreach($database as $album) {
             if (in_array($author, $album)) {
                 $filtered[] = $album;
