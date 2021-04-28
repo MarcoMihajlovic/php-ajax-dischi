@@ -3,17 +3,42 @@ var app = new Vue ({
 
     data: {
         albums: [],
+        types: [],
+        filterAuthor: "all",
     },
 
-    mounted () {
-        const self = this;
-        self.albums = [];
+    methods: {
+        getAlbum: function() {
+            
+            if(this.filterAuthor == 'all') {
+                return this.albums;
+            }
+
+            this.albums = [];
+
+            axios
+                .get('http://localhost/php-ajax-dischi/server.php?author=' + this.filterAuthor)
+                .then((request) =>{
+                    request.data.forEach(element => {
+                        this.albums.push(element);
+                    })
+
+                });
+
+        }
+    },
+
+    created () {
         axios
-            .get('http://localhost/php-ajax-dischi/server.php')
+            .get('http://localhost/php-ajax-dischi/server.php?author=' + this.filterAuthor)
             .then((request) =>{
                 request.data.forEach(element => {
-                    self.albums.push(element);
+                    this.albums.push(element);
+                    if(!this.types.includes(element.author)) {
+                        this.types.push(element.author);
+                    };
                 })
-            })
+            });
+            Vue.config.devtools = true;
     }
 })

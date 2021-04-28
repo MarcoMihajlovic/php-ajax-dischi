@@ -19,6 +19,12 @@
         <header>
             <div class="container">
                 <img src="img/logo.png" alt="">
+                <label for="type">Filtra per autore</label>
+                <select v-model="filterAuthor" name="type" id="type">
+                    <option value="all">All</option>
+                    <option v-for="type in types" :value="type" >{{type}}</option>
+                </select>
+
             </div>
         </header>
 
@@ -26,7 +32,7 @@
             <div class="container">
                 <div class="cards">
                     
-                    <div class="card" v-for="album in albums">
+                    <div class="card" v-for="album in getAlbum()">
                         <div class="cardImage">
                             <img :src="album.poster" alt="">
                         </div>
