@@ -10,6 +10,11 @@ body {
     overflow: hidden;
 }
 
+::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+}
+
 header img {
     height: 50px;
 }

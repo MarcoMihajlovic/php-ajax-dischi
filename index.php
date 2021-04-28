@@ -21,7 +21,7 @@
             <div class="cards">
 
                 <?php
-                include 'database.php';
+                include __DIR__ . '/partials/database.php';
                 
                 foreach ($database as $album) {
                     echo '<div class="card">';
