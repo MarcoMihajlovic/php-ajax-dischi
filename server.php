@@ -14,9 +14,9 @@
         foreach($database as $album) {
             if (in_array($author, $album)) {
                 $filtered[] = $album;
-                echo json_encode($filtered);
             }
         }
+        echo json_encode($filtered);
     }
 
 ?>
